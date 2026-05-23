@@ -1,0 +1,10 @@
+CREATE SCHEMA IF NOT EXISTS `teste`;
+USE `teste` ;
+
+
+CREATE TABLE IF NOT EXISTS `teste`.`usuario` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,  
+  `login` VARCHAR(45) NOT NULL UNIQUE,
+  `senha` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
