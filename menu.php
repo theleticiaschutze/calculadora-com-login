@@ -20,7 +20,10 @@ if (!isset($_SESSION['logged'])) {
 <body>
 
 
-
+    <nav class="navbar navbar-light bg-light px-4">
+    <span class="navbar-brand">Bem vindo, <?= $_SESSION['nome'] ?>!</span>    
+    <a href="logout.php" class="btn btn-danger btn-sm">Fazer logout</a>
+    </nav>
 
     <div class="container text-center mt-5">
         <div class="row">
@@ -31,13 +34,13 @@ if (!isset($_SESSION['logged'])) {
                 </p>
             </div>
         </div>
-        <a href="logout.php" class="btn btn-primary">Fazer logout</a>
+        
 
 
     </div>
 
     <div class="row justify-content-center">
-     <div class="col-lg-4">
+     <div class="col-lg-2">
     <form id="formcalc">
     <input type="number" name="val1" id="val1" class="form-control" placeholder="Valor 1">
     <input type="number" name="val2" id="val2" class="form-control" placeholder="Valor 2">

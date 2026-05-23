@@ -112,6 +112,11 @@ function validaCadastro() {
 </head>
 <body>
 
+<div class="container text-center mt-5 col-lg-6 mx-auto">
+    <h1 class="display-5">Faça login para usar a super calculadora!</h1>
+    <p class="text-muted">Faça login ou cadastre-se para continuar.</p>
+</div>
+
 <div class="container text-center mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-5">
@@ -182,24 +187,6 @@ function validaCadastro() {
 
 
 
-
-<!-- Opções velhas retirar--> 
- 
-<p>Opções velhas abaixo, retirar</p>
-<div class="container text-center mt-5">
-<div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <p class="lead text-center">
-                        Faça o Login ou cadastre-se!
-                    </p>
-                </div>
-            </div>
-            <a href="login.php" type="button" class="btn btn-primary" id="paglogin">Fazer login</a> 
-            <a href="cadastrar.php" type="button" class="btn btn-primary" id="pagcadastro"> Cadastrar</a>            
-
-            
-  
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzmYGozFHsqGFes5BVZH4h2QEzTZGLMNGn1AJiDDLiMNMQEGeFACfYQDTZk" crossorigin="anonymous"></script>
     
