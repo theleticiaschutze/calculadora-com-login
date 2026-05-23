@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($senha != $senha2) {
         $erro = "Senhas estão diferentes!";
     } else {
-        $conn = new mysqli("localhost", "root", "", "teste");
+        $conexao = new mysqli("localhost", "root", "", "teste");
 
-        if ($conn->connect_error) {
+        if ($conexao->connect_error) {
             $erro = "Erro de conexão com o banco de dados!";
         } else {
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO usuario (nome, login, senha) VALUES (?, ?, ?)");
+            $stmt = $conexao->prepare("INSERT INTO usuario (nome, login, senha) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $nome, $login, $senhaHash);
 
             if ($stmt->execute()) {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             $stmt->close();
-            $conn->close();
+            $conexao->close();
         }
     }
 }
