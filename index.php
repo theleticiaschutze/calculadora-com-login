@@ -78,117 +78,116 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem Vindo!</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; }
+        .card-custom { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    </style>
     <script>
-    function validaLogin() {
-    var login = document.forms["formlogin"]["login"].value;
-    var senha = document.forms["formlogin"]["senha"].value;
-
-    if (login == "" || senha == "") {
-        alert("Preencha todos os campos!");
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function validaCadastro() {
-        var nome   = document.forms["formcadastro"]["nome"].value;
-        var login  = document.forms["formcadastro"]["login"].value;
-        var senha  = document.forms["formcadastro"]["criarsenha"].value;
-        var senha2 = document.forms["formcadastro"]["confirmasenha"].value;
-
-        if (nome == "" || login == "" || senha == "") {
-            alert("Preencha todos os campos!");
-            return false;
-        } else if (senha != senha2) {
-            alert("As senhas não conferem!");
-            return false;
-        } else {
+        function validaLogin() {
+            var login = document.forms["formlogin"]["login"].value;
+            var senha = document.forms["formlogin"]["senha"].value;
+            if (login == "" || senha == "") {
+                alert("Preencha todos os campos!");
+                return false;
+            }
             return true;
         }
-    }
-  </script>
+
+        function validaCadastro() {
+            var nome   = document.forms["formcadastro"]["nome"].value;
+            var login  = document.forms["formcadastro"]["login"].value;
+            var senha  = document.forms["formcadastro"]["criarsenha"].value;
+            var senha2 = document.forms["formcadastro"]["confirmasenha"].value;
+            if (nome == "" || login == "" || senha == "") {
+                alert("Preencha todos os campos!");
+                return false;
+            } else if (senha != senha2) {
+                alert("As senhas não conferem!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 justify-content-center">
 
-<div class="container text-center mt-5 col-lg-6 mx-auto">
-    <h1 class="display-5">Faça login para usar a super calculadora!</h1>
-    <p class="text-muted">Faça login ou cadastre-se para continuar.</p>
-</div>
+    <div class="container text-center mb-4">
+        <h1 class="display-5 fw-bold text-primary">Super Calculadora</h1>
+        <p class="text-muted">Faça login ou cadastre-se para continuar.</p>
+    </div>
 
-<div class="container text-center mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
 
-            <?php if ($erro) { ?>
-                <div class="alert alert-danger"><?= $erro ?></div>
-            <?php }; ?>
+                <?php if ($erro) { ?>
+                    <div class="alert alert-danger shadow-sm"><?= $erro ?></div>
+                <?php }; ?>
 
-            <?php if ($sucesso){ ?>
-                <div class="alert alert-success"><?= $sucesso ?></div>
-            <?php }; ?>
+                <?php if ($sucesso){ ?>
+                    <div class="alert alert-success shadow-sm"><?= $sucesso ?></div>
+                <?php }; ?>
 
-    
-   <?php if ($pagina == 'login') { ?>
+                <div class="card card-custom p-4">
+                    <?php if ($pagina == 'login') { ?>
+                        <h4 class="mb-4">Entrar</h4>
+                        <form method="POST" name="formlogin" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start">
+                            <input type="hidden" name="acao" value="login">
+                            
+                            <div class="form-group mb-3">
+                                <label for="login" class="fw-semibold mb-1">Login</label>
+                                <input type="text" class="form-control form-control-lg" id="login" name="login" placeholder="Seu login">
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="senha" class="fw-semibold mb-1">Senha</label>
+                                <input type="password" class="form-control form-control-lg" id="senha" name="senha" placeholder="Senha">
+                            </div>
 
-   <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <form method="POST" name="formlogin" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input type="hidden" name="acao" value="login">
-          <div class="form-group mb-2">
-            <label for="cadastraLogin">Login</label>
-            <input type="text" class="form-control" id="login" name="login" placeholder="Seu login">
+                            <div class="d-grid gap-2">
+                                <button type="submit" onclick="return validaLogin();" class="btn btn-primary btn-lg">Login</button>
+                                <a href="?pagina=cadastro" class="btn btn-outline-secondary">Criar uma conta</a>
+                            </div>
+                        </form>
 
-          </div>
-          <div class="form-group mb-3">
-            <label for="criarSenha">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
-          </div>
+                    <?php } elseif ($pagina == 'cadastro') { ?>
+                        <h4 class="mb-4">Criar Conta</h4>
+                        <form method="POST" name="formcadastro" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start"> 
+                            <input type="hidden" name="acao" value="cadastro">
+                            
+                            <div class="form-group mb-3">
+                                <label for="nome" class="fw-semibold mb-1">Seu nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome...">
+                            </div>
 
-          <button type="submit" onclick="return validaLogin();" class="btn btn-primary">Login</button>
-          <a href="?pagina=cadastro" class="btn btn-secondary">Cadastrar</a>
-        </form>
-      </div>
-    </div>   <?php } elseif ($pagina == 'cadastro') { ?>
+                            <div class="form-group mb-3">
+                                <label for="login" class="fw-semibold mb-1">Criar Login</label>
+                                <input type="text" class="form-control" id="login" name="login" placeholder="Login...">
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="criarsenha" class="fw-semibold mb-1">Senha</label>
+                                <input type="password" class="form-control" id="criarsenha" name="criarsenha" placeholder="Crie uma senha...">
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="confirmasenha" class="fw-semibold mb-1">Confirmar senha</label>
+                                <input type="password" class="form-control" id="confirmasenha" name="confirmasenha" placeholder="Repita a senha...">
+                            </div>
 
-     <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <form method="POST" name="formcadastro" action="<?php echo $_SERVER['PHP_SELF']; ?>"> 
-            
-        
-            <input type="hidden" name="acao" value="cadastro">
-        <div class="form-group mb-2">
-            <label for="nome">Seu nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome!">
-          </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" onclick="return validaCadastro();" class="btn btn-success btn-lg">Cadastrar</button>
+                                <a href="?pagina=login" class="btn btn-outline-secondary">Já tenho conta</a>
+                            </div>
+                        </form>
+                    <?php }; ?>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
-        <div class="form-group mb-2">
-            <label for="login">Criar Login</label>
-            <input type="text" class="form-control" id="login" name="login" placeholder="Seu Login aqui!">
-          </div>
-          <div class="form-group mb-2">
-            <label for="criarSenha">Senha</label>
-            <input type="password" class="form-control" id="criarsenha" name="criarsenha" placeholder="Senha">
-          </div>
-          <div class="form-group mb-2">
-            <label for="criarSenha">Confirmar senha</label>
-            <input type="password" class="form-control" id="confirmasenha" name="confirmasenha" placeholder="Confirme a senha">
-          </div>
-
-          <button type="submit" onclick="return validaCadastro();" class="btn btn-primary">Cadastrar</button>
-           <a href="?pagina=login" class="btn btn-secondary">Já estou cadastrado!</a>
-      </form>
-          </div>
-
-
-
-     <?php }; ?>
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzmYGozFHsqGFes5BVZH4h2QEzTZGLMNGn1AJiDDLiMNMQEGeFACfYQDTZk" crossorigin="anonymous"></script>
-    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

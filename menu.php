@@ -6,60 +6,74 @@ if (!isset($_SESSION['logged'])) {
     exit;
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area Restrita!</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-   
+    <title>Área Restrita!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; }
+        .card-custom { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .navbar-custom { box-shadow: 0 2px 10px rgba(8, 3, 78, 0.1); }
+    </style>
 </head>
-
 <body>
 
-
-    <nav class="navbar navbar-light bg-light px-4">
-    <span class="navbar-brand">Bem vindo, <?= $_SESSION['nome'] ?>!</span>    
-    <a href="logout.php" class="btn btn-danger btn-sm">Fazer logout</a>
+    <nav class="navbar navbar-dark bg-dark px-4 navbar-custom">
+        <span class="navbar-brand fw-bold">Olá, <?= $_SESSION['nome'] ?>!</span>    
+        <a href="logout.php" class="btn btn-danger btn-sm">Sair</a>
     </nav>
 
-    <div class="container text-center mt-5">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <p class="lead text-center">
-                    Bem vindo, <?= $_SESSION['nome'] ?>! <br>
-                    Área Restrita, sinta-se livre para... fazer logout.
-                </p>
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-3">Bem-vindo a Área Restrita</h2>
+                <p class="text-muted">Use nossa calculadora para realizar suas operações de forma mágica</p>
             </div>
         </div>
-        
 
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-4 col-md-6">
+                
+                <div class="card card-custom p-4 text-start">
+                    <h5 class="text-center mb-4">Calculadora</h5>
+                    <form id="formcalc">
+                        <div class="mb-3">
+                            <label for="val1" class="form-label fw-semibold">Primeiro Valor</label>
+                            <input type="number" name="val1" id="val1" class="form-control form-control-lg" placeholder="Ex: 10">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="val2" class="form-label fw-semibold">Segundo Valor</label>
+                            <input type="number" name="val2" id="val2" class="form-control form-control-lg" placeholder="Ex: 5">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="operacao" class="form-label fw-semibold">Operação</label>
+                            <select name="operacao" id="operacao" class="form-select form-select-lg">
+                                <option value="somar">Somar</option>
+                                <option value="subtrair">Subtrair</option>
+                                <option value="multiplicar">Multiplicar</option>
+                                <option value="dividir">Dividir</option>
+                                <option value="potencia">Potencia</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">Calcular</button>
+                    </form>
+                    
+                    <div id="resultado" class="mt-4 text-center"></div>
+                </div>
 
+            </div>
+        </div>
     </div>
 
-    <div class="row justify-content-center">
-     <div class="col-lg-2">
-    <form id="formcalc">
-    <input type="number" name="val1" id="val1" class="form-control" placeholder="Valor 1">
-    <input type="number" name="val2" id="val2" class="form-control" placeholder="Valor 2">
-    <select name="operacao" id="operacao" class="form-control">
-        <option value="somar">Somar</option>
-        <option value="subtrair">Subtrair</option>
-        <option value="multiplicar">Multiplicar</option>
-        <option value="dividir">Dividir</option>
-    </select>
-    <button type="submit" class="btn btn-primary mt-2">Calcular</button>
-</form>
-<div id="resultado"></div>
-</div>
-</div>
-
-
-   
-
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzmYGozFHsqGFes5BVZH4h2QEzTZGLMNGn1AJiDDLiMNGn1AJiDDLiMNMQEGeFACfYQDTZk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById("formcalc").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -73,14 +87,13 @@ if (!isset($_SESSION['logged'])) {
             .then(data => {
                 if (data.erro) {
                     document.getElementById("resultado").innerHTML = 
-                        '<div class="alert alert-danger">' + data.erro + '</div>';
+                        '<div class="alert alert-danger shadow-sm">' + data.erro + '</div>';
                 } else {
                     document.getElementById("resultado").innerHTML = 
-                        '<div class="alert alert-success">Resultado: ' + data.resultado.toFixed(2) + '</div>';
+                        '<div class="alert alert-success shadow-sm fw-bold fs-5">Resultado: ' + data.resultado.toFixed(2) + '</div>';
                 }
             });
         });
     </script>
 </body>
-
 </html>
