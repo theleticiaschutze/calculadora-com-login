@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
             $stmt->bind_param("sss", $nome, $login, $senhaHash);
 
             if ($stmt->execute()) {
-                $sucesso = "Sucesso no cadastro! <a href='login.php' class='btn btn-primary btn-sm ms-2'>Faça o login</a>";
+                $sucesso = "Sucesso no cadastro!";
             } else {
                 $erro = "Erro, login duplicado!";
             }
