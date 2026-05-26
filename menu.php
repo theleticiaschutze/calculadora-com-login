@@ -231,7 +231,7 @@ if (!isset($_SESSION['logged'])) {
     
     if (this.value === "sqrt") {
         val2.disabled = true;
-        val2.placeholder = "Não necessário";
+        val2.placeholder = "Não usado";
         val2.value = "";
     } else {
         val2.disabled = false;
