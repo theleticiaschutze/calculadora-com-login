@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
         function validaLogin() {
             var login = document.forms["formlogin"]["login"].value;
             var senha = document.forms["formlogin"]["senha"].value;
-            if (login == "" || senha == "") {
+            if(login == null || login == "" || senha == null || senha == "") {
                 alert("Preencha todos os campos!");
                 return false;
             }
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
             var login  = document.forms["formcadastro"]["login"].value;
             var senha  = document.forms["formcadastro"]["criarsenha"].value;
             var senha2 = document.forms["formcadastro"]["confirmasenha"].value;
-            if (nome == "" || login == "" || senha == "") {
+            if (login == null || login == "" || senha == null || senha == "") {
                 alert("Preencha todos os campos!");
                 return false;
             } else if (senha != senha2) {
@@ -108,14 +108,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
             }
             return true;
         }
-    </script>
+    </script>   
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content-center">
 
-    <div class="container text-center mb-4">
+    <div class="container text-center mb-1">
         <h1 class="display-5 fw-bold text-primary">Super Calculadora</h1>
         <p class="text-muted">Faça login ou cadastre-se para continuar.</p>
     </div>
+
+    <a href="calc_v01.php" title="Vai clicar?">
+    <img src="img/calctoon.png" class="img-fluid mx-auto d-block mb-4" style="width: 120px;" alt="Calculadora fofinha feliz">
+    </a>
 
     <div class="container text-center">
         <div class="row justify-content-center">
@@ -130,6 +134,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
                 <?php }; ?>
 
                 <div class="card card-custom p-4">
+                    <?php if (isset($_SESSION['logged'])) { 
+                         echo '<div class="alert alert-danger shadow-sm">Você está logado!</div>';
+                         echo '<a href="logout.php" class="btn btn-primary btn-sm mb-3">Sair</a>';
+                         echo '<a href="menu.php" class="btn btn-primary btn-sm">Voltar</a>';
+
+                    } else { ?>
+
                     <?php if ($pagina == 'login') { ?>
                         <h4 class="mb-4">Entrar</h4>
                         <form method="POST" name="formlogin" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start">
@@ -142,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
                             
                             <div class="form-group mb-4">
                                 <label for="senha" class="fw-semibold mb-1">Senha</label>
-                                <input type="password" class="form-control form-control-lg" id="senha" name="senha" placeholder="Senha">
+                                <input type="password" class="form-control form-control-lg" id="senha" name="senha" placeholder="Sua senha">
                             </div>
 
                             <div class="d-grid gap-2">
@@ -151,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
                             </div>
                         </form>
 
-                    <?php } elseif ($pagina == 'cadastro') { ?>
+                    <?php } else if ($pagina == 'cadastro') { ?>
                         <h4 class="mb-4">Criar Conta</h4>
                         <form method="POST" name="formcadastro" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start"> 
                             <input type="hidden" name="acao" value="cadastro">
@@ -183,7 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
                         </form>
                     <?php }; ?>
                 </div>
-                
+                <?php } ?>
+</div>
             </div>
         </div>
     </div>

@@ -34,6 +34,8 @@
                             </select><br />
             <input type="submit" value="Calcular!" onclick="return valida();" />
         </form>
+        <br><br>
+        <a href="index.php"> <<< Voltar </a>
     <?php
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $val1 = isset($_POST['val1']) ? $_POST['val1'] : 0;
