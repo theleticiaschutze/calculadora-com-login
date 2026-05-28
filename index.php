@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
             var login  = document.forms["formcadastro"]["login"].value;
             var senha  = document.forms["formcadastro"]["criarsenha"].value;
             var senha2 = document.forms["formcadastro"]["confirmasenha"].value;
-            if (login == null || login == "" || senha == null || senha == "") {
+            if (nome == null || nome == "" || login == null || login == "" || senha == null || senha == "") {
                 alert("Preencha todos os campos!");
                 return false;
             } else if (senha != senha2) {
@@ -134,16 +134,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
                 <?php }; ?>
 
                 <div class="card card-custom p-4">
-                    <?php if (isset($_SESSION['logged'])) { 
-                         echo '<div class="alert alert-danger shadow-sm">Você está logado!</div>';
-                         echo '<a href="logout.php" class="btn btn-primary btn-sm mb-3">Sair</a>';
-                         echo '<a href="menu.php" class="btn btn-primary btn-sm">Voltar</a>';
-
-                    } else { ?>
+                    <?php if (isset($_SESSION['logged'])) { ?>
+                         <div class="alert alert-danger shadow-sm">Você está logado!</div>
+                            <a href="logout.php" class="btn btn-primary btn-sm mb-3">Sair</a>
+                             <a href="menu.php" class="btn btn-primary btn-sm">Voltar</a>
+                    <?php } else { ?>
 
                     <?php if ($pagina == 'login') { ?>
                         <h4 class="mb-4">Entrar</h4>
-                        <form method="POST" name="formlogin" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start">
+                        <form method="POST" name="formlogin" action="?pagina=login" class="text-start">
                             <input type="hidden" name="acao" value="login">
                             
                             <div class="form-group mb-3">
@@ -164,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['acao']) && $_POST['aca
 
                     <?php } else if ($pagina == 'cadastro') { ?>
                         <h4 class="mb-4">Criar Conta</h4>
-                        <form method="POST" name="formcadastro" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="text-start"> 
+                        <form method="POST" name="formcadastro" action="?pagina=cadastro" class="text-start"> 
                             <input type="hidden" name="acao" value="cadastro">
                             
                             <div class="form-group mb-3">

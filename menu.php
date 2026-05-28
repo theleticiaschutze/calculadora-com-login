@@ -81,7 +81,7 @@ if (!isset($_SESSION['logged'])) {
     
 
 
-<!-- Modal -->
+<!-- calculadora js no modal -->
 <div class="modal fade" id="modalCalc" tabindex="-1" >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content d-flex flex-column justify-content-center" style="background-color: #111111; border-radius: 26px;">
@@ -227,7 +227,7 @@ if (!isset($_SESSION['logged'])) {
         //js para evitar val2 na raiz quadrada
         document.getElementById("operacao").addEventListener("change", function() {
     const val2 = document.getElementById("val2");
-    const label2 = document.querySelector("label[for='val2']");
+    
     
     if (this.value === "sqrt") {
         val2.disabled = true;
